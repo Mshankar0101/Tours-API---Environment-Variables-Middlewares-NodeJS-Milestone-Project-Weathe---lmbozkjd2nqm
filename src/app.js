@@ -43,7 +43,7 @@ app.put('/tours/:id', (req, res) => {
   //write a code here for updating a tour
   try{
     if(!updatedTour || !tourId){
-      return res.status(400).json("Please provide update information");
+      return res.status(404).json("Please provide update information");
     }
     let  index = tourDetails.findIndex((item)=> item.id === tourId);
     //replacing  old data with new data
@@ -60,7 +60,7 @@ app.delete('/tours/:id', (req, res) => {
   //Write a code here for deleting a tour from data/tours.json
   try{
     if(!tourId){
-      return res.status(400).json("Please provide update information");
+      return res.status(404).json("Please provide update information");
     }
     const newData = tourDetails.filter(item=> item.id !== tourId);
     console.log('New Data: ', newData);
