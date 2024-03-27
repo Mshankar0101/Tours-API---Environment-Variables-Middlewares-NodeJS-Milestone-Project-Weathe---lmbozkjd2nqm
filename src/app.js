@@ -10,7 +10,7 @@ const tourDetails = JSON.parse(fs.readFileSync(`${__dirname}/data/tours.json`));
 app.get('/tours', (req, res) => {
   //write a code here to get all the tours from tours.json
   try{
-     res.status(200).json({...tourDetails});
+     res.status(200).json(tourDetails);
   }catch(err){
      res.status(500).json({"Error": err.message})
   }
@@ -42,7 +42,7 @@ app.put('/tours/:id', (req, res) => {
   const updatedTour = req.body;
   //write a code here for updating a tour
   try{
-    if(!updatedTour){
+    if(!updatedTour || !tourId){
       return res.status(400).json("Please provide update information");
     }
     let  index = tourDetails.findIndex((item)=> item.id === tourId);
@@ -59,11 +59,13 @@ app.delete('/tours/:id', (req, res) => {
   const tourId = parseInt(req.params.id);
   //Write a code here for deleting a tour from data/tours.json
   try{
+    if(!tourId){
+      return res.status(400).json("Please provide update information");
+    }
     const newData = tourDetails.filter(item=> item.id !== tourId);
     console.log('New Data: ', newData);
     fs.writeFileSync(`${__dirname}/data/tours.json`, JSON.stringify(newData));
     return res.status(200).json({"message": "Tour deleted successfully"});
-
   }catch(err){
     res.status(500).json({"Error": err.message});  
   }
