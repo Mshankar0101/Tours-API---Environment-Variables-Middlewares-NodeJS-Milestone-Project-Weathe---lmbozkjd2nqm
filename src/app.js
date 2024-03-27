@@ -41,7 +41,7 @@ app.put('/tours/:id', (req, res) => {
   const tourId = parseInt(req.params.id);
   const updatedTour = req.body;
   //write a code here for updating a tour
-  try{
+ 
     const isIdExist =  tourDetails.some((val)=> val.id === tourId);
     if(!updatedTour || !tourId || !isIdExist){
       return res.status(404).json("Please provide update information");
@@ -51,15 +51,13 @@ app.put('/tours/:id', (req, res) => {
     tourDetails[index]= {id:tourId, ...updatedTour};
     fs.writeFileSync(`${__dirname}/data/tours.json`, JSON.stringify(tourDetails));
     return res.status(200).json({"message": "Tour updated successfully"});
-  }catch(err){
-    res.status(500).json({"Error": err.message});
-  }
+ 
 });
 
 app.delete('/tours/:id', (req, res) => {
   const tourId = parseInt(req.params.id);
   //Write a code here for deleting a tour from data/tours.json
-  try{
+ 
      const isIdExist =  tourDetails.some((val)=> val.id === tourId);
     if(!updatedTour || !tourId || !isIdExist){
       return res.status(404).json("Please provide update information");
@@ -68,9 +66,7 @@ app.delete('/tours/:id', (req, res) => {
     console.log('New Data: ', newData);
     fs.writeFileSync(`${__dirname}/data/tours.json`, JSON.stringify(newData));
     return res.status(200).json({"message": "Tour deleted successfully"});
-  }catch(err){
-    res.status(500).json({"Error": err.message});  
-  }
+  
 });
 
 module.exports = app;
