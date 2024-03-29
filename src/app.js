@@ -44,7 +44,7 @@ app.put('/tours/:id', (req, res) => {
  
     const isIdExist =  tourDetails.some((val)=> val.id === tourId);
     if(!updatedTour || !tourId || !isIdExist){
-      return res.status(404).json("Please provide update information");
+      return res.status(404).json({ message: 'Tour not found' });
     }
     let  index = tourDetails.findIndex((item)=> item.id === tourId);
     //replacing  old data with new data
@@ -60,7 +60,7 @@ app.delete('/tours/:id', (req, res) => {
  
      const isIdExist =  tourDetails.some((val)=> val.id === tourId);
     if( !tourId || !isIdExist){
-      return res.status(404).json("Please provide update information");
+      return res.status(404).json({ message: 'Tour not found' });
     }
     const newData = tourDetails.filter(item=> item.id !== tourId);
     console.log('New Data: ', newData);
