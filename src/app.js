@@ -59,7 +59,7 @@ app.delete('/tours/:id', (req, res) => {
   //Write a code here for deleting a tour from data/tours.json
  
      const isIdExist =  tourDetails.some((val)=> val.id === tourId);
-    if(!updatedTour || !tourId || !isIdExist){
+    if( !tourId || !isIdExist){
       return res.status(404).json("Please provide update information");
     }
     const newData = tourDetails.filter(item=> item.id !== tourId);
